@@ -4,7 +4,9 @@ import styles from './nav.module.scss'
 export default function nav() {
   return (
     <nav className={styles.nav}>
-      <h4 className={styles.logo}>My Portfolio</h4>
+      <Link href="/">
+        <h4 className={styles.logo}>My Portfolio</h4>
+      </Link>
       <ul>
         <li>
           <h5><Link href="/">Home</Link></h5>
