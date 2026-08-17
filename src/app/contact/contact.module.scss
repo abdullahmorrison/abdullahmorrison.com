@@ -10,62 +10,92 @@
 
 .body {
     flex: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 60px;
+    gap: 40px;
 }
 
 .title {
-    display: grid;
     line-height: 1;
-
-    span {
-        overflow: hidden;
-    }
-    span p {
-        animation: slideUp 0.75s ease-out;
-    }
-    .accent p {
-        color: $title-accent;
-        animation: slideDown 1.5s ease-out;
-    }
 }
 
-.links {
+.form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    list-style: none;
+    flex-direction: column;
+    gap: 25px;
+}
 
-    .label {
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
         color: $text-secondary;
-        margin-bottom: 5px;
+        font-size: $heading5;
     }
 
-    a {
-        text-decoration: underline;
-        text-underline-offset: 4px;
+    input,
+    textarea {
+        font: inherit;
+        color: $text-primary;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid $title-accent;
+        padding: 8px 0;
+        resize: vertical;
 
-        &:hover {
-            color: $sharp-accent;
+        &:focus {
+            outline: none;
+            border-bottom-color: $sharp-accent;
         }
     }
 }
 
-@keyframes slideUp {
-    0% { transform: translateY(100%); }
-    50% { transform: translateY(100%); }
-    100% { transform: translateY(0%); }
+.submit {
+    align-self: flex-start;
+    font: inherit;
+    font-size: $heading5;
+    color: $text-primary;
+    background: transparent;
+    border: 1px solid $title-accent;
+    padding: 10px 30px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+        border-color: $sharp-accent;
+        color: $sharp-accent;
+    }
+    &:disabled {
+        color: $text-secondary;
+        cursor: default;
+    }
 }
-@keyframes slideDown {
-    0% { transform: translateY(-100%); }
-    50% { transform: translateY(-100%); }
-    100% { transform: translateY(0%); }
+
+.sent {
+    font-size: $heading5;
+}
+
+.error {
+    color: $sharp-accent;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+// Bots fill this in; people never see it.
+.honeypot {
+    display: none;
 }
 
 @media (max-width: 530px){
-    .title{
-        font-size: $heading3;
+    .contact {
+        padding: 30px;
     }
 }
