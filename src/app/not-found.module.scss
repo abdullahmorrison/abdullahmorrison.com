@@ -29,13 +29,24 @@ $highlight: #ffffff;
 }
 
 .home {
-    font-size: $heading5;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     border-bottom: 1px solid $title-accent;
     padding-bottom: 4px;
     transition: border-color 0.25s ease, color 0.25s ease;
 
+    .arrow {
+        transition: transform 0.25s ease;
+    }
+
     &:hover {
         border-bottom-color: $highlight;
+
+        .arrow {
+            transform: translateX(-4px);
+        }
     }
 }
 
