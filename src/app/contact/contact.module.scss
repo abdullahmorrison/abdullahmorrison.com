@@ -52,7 +52,7 @@
 
         &:focus {
             outline: none;
-            border-bottom-color: $sharp-accent;
+            border-bottom-color: $text-primary;
         }
     }
 }
@@ -68,8 +68,9 @@
     cursor: pointer;
 
     &:hover:not(:disabled) {
-        border-color: $sharp-accent;
-        color: $sharp-accent;
+        border-color: $text-primary;
+        background: $text-primary;
+        color: $pseudo-black;
     }
     &:disabled {
         color: $text-secondary;
