@@ -32,7 +32,7 @@ export default function Home() {
         <ul>
           <li><a href="https://linkedin.com/in/abdullah-morrison" target="_blank">LinkedIn</a></li>
           <li><a href="https://github.com/abdullahmorrison" target="_blank">GitHub</a></li>
-          <li><a href="https://www.overleaf.com/read/wgtzgrzyfprt#f54c1b" target='_blank'>My Resume</a></li>
+          <li><a href="https://abdullahmorrison.github.io/resume/" target="_blank">My Resume</a></li>
         </ul>
         <p>This website was made with NextJS.</p>
       </footer>
