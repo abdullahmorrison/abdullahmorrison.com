@@ -1,0 +1,46 @@
+@import '../styles/variables.scss';
+
+$highlight: #ffffff;
+
+.notFound {
+    min-height: 100vh;
+    padding: 50px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.code {
+    line-height: 1;
+    color: $title-accent;
+}
+
+.message {
+    font-size: $heading5;
+}
+
+.home {
+    font-size: $heading5;
+    border-bottom: 1px solid $title-accent;
+    padding-bottom: 4px;
+    transition: border-color 0.25s ease, color 0.25s ease;
+
+    &:hover {
+        border-bottom-color: $highlight;
+    }
+}
+
+@media (max-width: 530px){
+    .notFound {
+        padding: 30px;
+    }
+}
