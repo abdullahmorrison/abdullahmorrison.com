@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import styles from './contact.module.scss'
-import Nav from '../components/nav/nav'
+import Nav from '@/components/nav/nav'
 import ContactForm from './contact-form'
 
 export const metadata: Metadata = {
