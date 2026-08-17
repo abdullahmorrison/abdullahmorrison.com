@@ -1,7 +1,7 @@
 import styles from './page.module.scss'
-import Nav from './components/nav/nav'
-import ProjectPreview from './components/project-preview/ProjectPreview'
-import projects from './assets/projects.json'
+import Nav from '@/components/nav/nav'
+import ProjectPreview from '@/components/project-preview/ProjectPreview'
+import projects from '@/data/projects.json'
 
 export default function Home() {
   return (

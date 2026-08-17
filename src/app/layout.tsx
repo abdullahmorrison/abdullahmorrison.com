@@ -1,4 +1,4 @@
-import './globals.scss'
+import '@/styles/globals.scss'
 import type { Metadata } from 'next'
 import { Shippori_Mincho_B1 } from 'next/font/google'
 
