@@ -1,0 +1,108 @@
+@import '../variables.scss';
+
+// Local to this component. Promote it to variables.scss if anything else
+// ever needs a non-text white.
+$highlight: #ffffff;
+
+.contact {
+    min-height: 100vh;
+    padding: 50px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 80px;
+}
+
+.title {
+    line-height: 1;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
+        color: $text-secondary;
+        font-size: $heading5;
+    }
+
+    input,
+    textarea {
+        font: inherit;
+        color: $text-primary;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid $title-accent;
+        padding: 8px 0;
+        resize: vertical;
+        transition: border-color 0.25s ease;
+
+        &:focus {
+            outline: none;
+            border-bottom-color: $highlight;
+        }
+    }
+}
+
+.submit {
+    align-self: flex-start;
+    font: inherit;
+    font-size: $heading5;
+    color: $text-primary;
+    background: transparent;
+    border: 1px solid $title-accent;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+
+    &:hover:not(:disabled) {
+        border-color: $highlight;
+        background: $highlight;
+        color: $pseudo-black;
+    }
+    &:disabled {
+        color: $text-secondary;
+        cursor: default;
+    }
+}
+
+.sent {
+    font-size: $heading5;
+}
+
+.error {
+    color: $sharp-accent;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+// Bots fill this in; people never see it.
+.honeypot {
+    display: none;
+}
+
+@media (max-width: 530px){
+    .contact {
+        padding: 30px;
+    }
+}
