@@ -1,0 +1,204 @@
+---
+import { Image } from 'astro:assets'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Nav from '@/components/Nav.astro'
+import Footer from '@/components/Footer.astro'
+import { formatDate, readingTime, type Post } from '@/lib/posts'
+import '@/styles/prose.scss'
+
+interface Props {
+    post: Post
+}
+
+const { post } = Astro.props
+const { title, description, date, tags, cover, coverAlt, draft } = post.data
+---
+
+<BaseLayout title={`${title} | Abdullah Morrison`} description={description} ogType="article">
+    <main class="post">
+        <Nav />
+
+        <article class="article">
+            <header class="masthead">
+                <p class="meta">
+                    <time datetime={date.toISOString()}>{formatDate(date)}</time>
+                    <span class="dot" aria-hidden="true">·</span>
+                    <span>{readingTime(post.body ?? '')}</span>
+                    {draft && <span class="draft">Draft</span>}
+                </p>
+
+                <h1 class="title">{title}</h1>
+                <p class="dek">{description}</p>
+            </header>
+
+            {
+                cover && (
+                    <figure class="cover">
+                        <Image src={cover} alt={coverAlt ?? ''} widths={[640, 1024, 1600]} />
+                        {coverAlt && <figcaption>{coverAlt}</figcaption>}
+                    </figure>
+                )
+            }
+
+            <div class="prose">
+                <slot />
+            </div>
+
+            {
+                tags.length > 0 && (
+                    <footer class="tags">
+                        {tags.map((tag) => (
+                            <span class="tag">{tag}</span>
+                        ))}
+                    </footer>
+                )
+            }
+        </article>
+    </main>
+
+    <Footer />
+</BaseLayout>
+
+<script>
+    // Mermaid is only fetched when a post actually contains a diagram, so posts
+    // without one ship no charting library at all.
+    const diagrams = document.querySelectorAll<HTMLElement>('.mermaid[data-mermaid-source]')
+
+    if (diagrams.length > 0) {
+        const mermaid = (await import('mermaid')).default
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            fontFamily: 'var(--font-prose), Georgia, serif',
+        })
+
+        await Promise.all(
+            Array.from(diagrams).map(async (node, index) => {
+                const source = node.dataset.mermaidSource ?? ''
+                try {
+                    const { svg } = await mermaid.render(`mermaid-${index}`, source)
+                    node.innerHTML = svg
+                } catch {
+                    // A broken graph should not take the article down with it.
+                    node.textContent = source
+                }
+                node.setAttribute('data-rendered', '')
+            }),
+        )
+    }
+</script>
+
+<style lang="scss">
+    @use 'variables' as *;
+
+    .post {
+        min-height: 100vh;
+        padding: 50px;
+    }
+
+    .article {
+        padding: 90px 0 120px;
+    }
+
+    .masthead {
+        max-width: 38em;
+        margin: 0 auto 60px;
+        text-align: center;
+    }
+
+    .meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        font-family: var(--font-prose), Georgia, serif;
+        font-variant: small-caps;
+        letter-spacing: 0.06em;
+        font-size: 0.95rem;
+        color: $prose-muted;
+
+        .dot {
+            color: $prose-rule;
+        }
+        .draft {
+            border: 1px solid $sharp-accent;
+            color: $sharp-accent;
+            padding: 0 8px;
+        }
+    }
+
+    .title {
+        margin-top: 20px;
+        font-size: $heading3;
+        line-height: 1.08;
+    }
+
+    .dek {
+        margin: 20px auto 0;
+        max-width: 30em;
+
+        font-family: var(--font-prose), Georgia, serif;
+        font-style: italic;
+        font-size: 1.35rem;
+        line-height: 1.5;
+        color: $prose-muted;
+    }
+
+    .cover {
+        max-width: 46em;
+        margin: 0 auto 60px;
+
+        :global(img) {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        figcaption {
+            margin-top: 0.7em;
+            text-align: center;
+            font-family: var(--font-prose), Georgia, serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: $prose-muted;
+        }
+    }
+
+    .tags {
+        max-width: 34em;
+        margin: 70px auto 0;
+        padding-top: 24px;
+        border-top: 1px solid $prose-rule;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .tag {
+            font-family: var(--font-prose), Georgia, serif;
+            font-variant: small-caps;
+            letter-spacing: 0.06em;
+            font-size: 0.95rem;
+            color: $prose-muted;
+            border: 1px solid $prose-rule;
+            padding: 2px 12px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .post {
+            padding: 30px;
+        }
+        .article {
+            padding: 50px 0 70px;
+        }
+        .title {
+            font-size: $heading4;
+        }
+        .dek {
+            font-size: 1.2rem;
+        }
+    }
+</style>

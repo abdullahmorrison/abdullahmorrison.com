@@ -20,10 +20,10 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Lint
+      # astro check type-checks .astro files, TypeScript, and content collection
+      # frontmatter against its schema.
+      - name: Check
         run: npm run lint
 
-      # next build runs the TypeScript compiler, so a separate tsc --noEmit
-      # step would only repeat work already done here.
       - name: Build
         run: npm run build

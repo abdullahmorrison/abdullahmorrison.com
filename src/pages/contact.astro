@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Nav from '@/components/Nav.astro'
+import ContactForm from '@/components/ContactForm.astro'
+---
+
+<BaseLayout title="Contact | Abdullah Morrison" description="Get in touch with Abdullah Morrison.">
+    <main class="contact">
+        <Nav />
+
+        <div class="body">
+            <h2 class="title">Contact</h2>
+            <ContactForm />
+        </div>
+    </main>
+</BaseLayout>
+
+<style lang="scss">
+    @use 'variables' as *;
+
+    .contact {
+        min-height: 100vh;
+        padding: 50px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .body {
+        flex: 1;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 80px;
+    }
+
+    .title {
+        line-height: 1;
+    }
+
+    @media (max-width: 530px) {
+        .contact {
+            padding: 30px;
+        }
+    }
+</style>

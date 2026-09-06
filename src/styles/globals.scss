@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables' as *;
 
 * {
   box-sizing: border-box;
@@ -15,6 +15,7 @@ body {
 body {
   color: $text-primary;
   background: $pseudo-black;
+  font-family: var(--font-display), Georgia, serif;
 }
 
 a {
@@ -22,7 +23,7 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5{
+h1, h2, h3, h4, h5 {
   font-weight: 400;
 }
 

@@ -1,0 +1,108 @@
+---
+import { formatDate, readingTime, postUrl, type Post } from '@/lib/posts'
+
+interface Props {
+    posts: Post[]
+    empty?: string
+}
+
+const { posts, empty = 'Nothing published yet.' } = Astro.props
+---
+
+{
+    posts.length === 0 ? (
+        <p class="empty">{empty}</p>
+    ) : (
+        <ol class="entries">
+            {posts.map((post) => (
+                <li class="entry">
+                    <a href={postUrl(post)}>
+                        <p class="meta">
+                            <time datetime={post.data.date.toISOString()}>
+                                {formatDate(post.data.date)}
+                            </time>
+                            <span class="dot" aria-hidden="true">
+                                ·
+                            </span>
+                            <span>{readingTime(post.body ?? '')}</span>
+                            {post.data.draft && <span class="draft">Draft</span>}
+                        </p>
+                        <h3 class="entry-title">{post.data.title}</h3>
+                        <p class="entry-dek">{post.data.description}</p>
+                    </a>
+                </li>
+            ))}
+        </ol>
+    )
+}
+
+<style lang="scss">
+    @use 'variables' as *;
+
+    .entries {
+        list-style: none;
+    }
+
+    .entry {
+        border-top: 1px solid $prose-rule;
+
+        &:last-child {
+            border-bottom: 1px solid $prose-rule;
+        }
+
+        a {
+            display: block;
+            padding: 34px 0;
+
+            &:hover .entry-title {
+                color: $prose-muted;
+            }
+        }
+    }
+
+    .meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-family: var(--font-prose), Georgia, serif;
+        font-variant: small-caps;
+        letter-spacing: 0.06em;
+        font-size: 0.95rem;
+        color: $prose-muted;
+
+        .dot {
+            color: $prose-rule;
+        }
+        .draft {
+            border: 1px solid $sharp-accent;
+            color: $sharp-accent;
+            padding: 0 8px;
+            letter-spacing: 0.04em;
+        }
+    }
+
+    .entry-title {
+        margin-top: 12px;
+        font-size: $heading4;
+        line-height: 1.15;
+        transition: color 0.25s ease;
+    }
+
+    .entry-dek {
+        margin-top: 12px;
+        max-width: 34em;
+
+        font-family: var(--font-prose), Georgia, serif;
+        font-size: 1.2rem;
+        line-height: 1.55;
+        color: $prose-muted;
+    }
+
+    .empty {
+        font-family: var(--font-prose), Georgia, serif;
+        font-style: italic;
+        font-size: 1.3rem;
+        color: $prose-muted;
+    }
+</style>
