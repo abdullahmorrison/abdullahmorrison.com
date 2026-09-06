@@ -50,8 +50,9 @@ export default defineConfig({
           name: 'Shippori Mincho B1',
           cssVariable: '--font-display',
           weights: [400],
-          // The family ships enormous Japanese subsets; the site only sets Latin.
           subsets: ['latin'],
+          fallbacks: ['Georgia', 'serif'],
+          display: 'fallback'
       },
       {
           // Reading face. An old-style serif with real italics and small caps,
@@ -62,6 +63,8 @@ export default defineConfig({
           weights: [400, 500, 600],
           styles: ['normal', 'italic'],
           subsets: ['latin'],
+          fallbacks: ['Georgia', 'serif'],
+          display: 'fallback'
       },
   ],
 
