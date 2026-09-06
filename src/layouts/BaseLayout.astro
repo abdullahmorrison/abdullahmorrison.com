@@ -1,0 +1,50 @@
+---
+import { Font } from 'astro:assets'
+import '@/styles/globals.scss'
+
+interface Props {
+    title: string
+    description?: string
+    /** Absolute or root-relative image for social cards. */
+    ogImage?: string
+    ogType?: 'website' | 'article'
+}
+
+const {
+    title,
+    description = 'Abdullah Morrison is a software engineer based in Ottawa, Canada.',
+    ogImage,
+    ogType = 'website',
+} = Astro.props
+
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site) : undefined
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" type="application/rss+xml" title="Abdullah Morrison" href="/rss.xml" />
+
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <meta property="og:type" content={ogType} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+        <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+
+        <Font cssVariable="--font-display" preload />
+        <Font cssVariable="--font-prose" />
+
+        <slot name="head" />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>

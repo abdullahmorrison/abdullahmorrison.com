@@ -1,0 +1,86 @@
+---
+interface Props {
+    number: number
+    name: string
+    imgSrc: string
+    description: string
+    links: { title: string; url: string }[]
+}
+
+const { number, name, imgSrc, description, links } = Astro.props
+---
+
+<section class="project" style={`background-image: url(${imgSrc})`}>
+    <div class="project-info">
+        <h3 class="number">{number}</h3>
+        <h3 class="name">{name}</h3>
+        <p class="description">{description}</p>
+
+        <ul class="links">
+            {
+                links.map((link) => (
+                    <li>
+                        <a href={link.url} target="_blank" rel="noopener noreferrer">
+                            {link.title}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</section>
+
+<style lang="scss">
+    @use 'variables' as *;
+
+    .project {
+        height: 100vh;
+
+        background-color: $pseudo-black;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: right;
+
+        .project-info {
+            background-color: hsla(0, 0%, 0%, 0.67);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10%;
+
+            height: 100%;
+            width: 50%;
+
+            .number {
+                color: $title-accent;
+            }
+            .name {
+                margin-bottom: 40px;
+            }
+            .description {
+                color: $text-secondary;
+            }
+            .links {
+                display: flex;
+                margin-top: 20px;
+                li {
+                    list-style-type: none;
+                    margin-right: 20px;
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 750px) {
+        .project {
+            height: 500px;
+            .project-info {
+                width: 100%;
+            }
+        }
+    }
+</style>

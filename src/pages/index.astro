@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Nav from '@/components/Nav.astro'
+import Footer from '@/components/Footer.astro'
+import ProjectPreview from '@/components/ProjectPreview.astro'
+import projects from '@/data/projects.json'
+---
+
+<BaseLayout title="Abdullah Morrison | Software Engineer">
+    <main class="hero">
+        <Nav />
+        <h1 class="full-name">
+            <span class="first-name"><p>Abdullah</p></span>
+            <span class="last-name"><p>Morrison</p></span>
+        </h1>
+    </main>
+
+    {
+        projects.map((project, index) => (
+            <ProjectPreview
+                number={index + 1}
+                imgSrc={project.imgSrc}
+                name={project.name}
+                description={project.description}
+                links={project.links}
+            />
+        ))
+    }
+
+    <Footer />
+</BaseLayout>
+
+<style lang="scss">
+    @use 'variables' as *;
+
+    .hero {
+        height: 100vh;
+        padding: 50px;
+
+        .full-name {
+            position: absolute;
+            bottom: 15%;
+
+            display: grid;
+            line-height: 1;
+
+            .first-name,
+            .last-name {
+                overflow: hidden;
+            }
+            .first-name p {
+                animation: slideUp 0.75s ease-out;
+            }
+            .last-name p {
+                color: $title-accent;
+                animation: slideDown 1.5s ease-out;
+            }
+        }
+    }
+
+    @keyframes slideUp {
+        0% { transform: translateY(100%); }
+        50% { transform: translateY(100%); }
+        100% { transform: translateY(0%); }
+    }
+    @keyframes slideDown {
+        0% { transform: translateY(-100%); }
+        50% { transform: translateY(-100%); }
+        100% { transform: translateY(0%); }
+    }
+
+    @media (max-width: 530px) {
+        .hero {
+            padding: 30px;
+        }
+        .full-name {
+            font-size: $heading3;
+        }
+    }
+</style>

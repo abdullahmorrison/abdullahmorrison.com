@@ -1,0 +1,63 @@
+---
+const links = [
+    { href: '/', label: 'Home' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' },
+]
+---
+
+<nav class="nav">
+    <a href="/"><h4 class="logo">My Portfolio</h4></a>
+    <ul>
+        {
+            links.map((link) => (
+                <li>
+                    <h5>
+                        <a href={link.href}>{link.label}</a>
+                    </h5>
+                </li>
+            ))
+        }
+    </ul>
+</nav>
+
+<style lang="scss">
+    @use 'variables' as *;
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        .logo::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin: 0 10px;
+                padding: 0;
+            }
+        }
+    }
+
+    @media (max-width: 530px) {
+        .nav {
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+</style>

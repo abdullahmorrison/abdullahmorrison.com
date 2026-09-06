@@ -10,3 +10,12 @@ $heading2: 6.854rem;
 $heading3: 4.236rem;
 $heading4: 2.618rem;
 $heading5: 1.618rem;
+
+// Long-form reading surface. Warmer and lower contrast than the site chrome --
+// pure white on near-black glares once you are reading paragraphs, not labels.
+$prose-text: #e6e2d9;
+$prose-muted: #9a958a;
+$prose-rule: #3a3a38;
+
+// Roughly 68 characters in EB Garamond. The single most important number here.
+$prose-measure: 34em;
