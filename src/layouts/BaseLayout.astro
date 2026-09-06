@@ -39,8 +39,8 @@ const ogImageUrl = ogImage ? new URL(ogImage, Astro.site) : undefined
         {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
         <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
 
-        <Font cssVariable="--font-display" preload />
-        <Font cssVariable="--font-prose" />
+        <Font cssVariable="--font-display" />
+        <Font cssVariable="--font-prose" preload />
 
         <slot name="head" />
     </head>
